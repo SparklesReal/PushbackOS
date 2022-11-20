@@ -25,20 +25,25 @@ ClearScreen:
 ret
 
 GetKeyboardInput:
+mov bx, 0
 Loop1:
     mov ah, 00h ; sets keyboard mode to get keystroke
     int 0x16 ; bios call to take input
 
-    cmp al, 0x1C0D ; if al/input is 1C0D/enter
+    cmp al, 0x0D ; if al/input is 1C0D/enter
     je Exit1 ; then jump to exit
-
+    mov [InputChar + bx], al ; moves the inputed char to InputChar
+    inc bx ; increses bx / goes to the next char in the string
     mov ah, 0x0e ; selects tele-type mode
     int 0x10 ; does the interupt and prints the input
-    mov [bx], al
-    inc bx
 jmp Loop1 ; loops
 Exit1:
+mov al, 0 ; moves zero into al for next line
+mov [InputChar + bx], al ; makes the last char of the string 0 to show that it's the end of the string
+mov bx, InputChar ; moves the complete string back into bx for the other code to use
 ret
+
+InputChar times 10 db 0
 
 WriteToDisk:
     pusha
@@ -52,4 +57,13 @@ WriteToDisk:
     int 13
 ret
 
-  
+GetSystemClock:
+    mov ah, 02h ; read RTC (real time clock)
+    int 1ah     ; bios call
+    mov al, cl
+    mov ah, 0x0e
+    int 0x10
+ret
+
+CompareInput:
+ret
