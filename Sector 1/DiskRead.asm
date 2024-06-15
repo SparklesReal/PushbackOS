@@ -8,7 +8,7 @@ section .data
         db 2 ; how many sectors to read
 
     DiskReadErrorString:
-        db "Disk read failed :<",0 ; what to say if it fails
+        db "Disk read failed :<", 0 ; what to say if it fails
 
 section .text
 
@@ -27,6 +27,7 @@ section .text
     DiskReadFailed:
         mov bx, DiskReadErrorString ; bx / what to print is set to the Error
         call PrintString ; calls PrintString with bx set to the error / what to print to the error
+        ret
 
         jmp $
         
