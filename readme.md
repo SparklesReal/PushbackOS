@@ -1,11 +1,11 @@
 ## Dependencies
 
-[NASM](https://www.nasm.us/)
+[NASM](https://www.nasm.us/) <br>
 [QEMU](https://www.qemu.org/)
 
 ## How to run
 
-Install dependencies (Both compiler and emulator can be changed in the compile script)
+Install dependencies (Both compiler and emulator can be changed in the compile script) <br>
 Run compile.bat or compile.sh depending on host OS
 
 ## "Todo"
